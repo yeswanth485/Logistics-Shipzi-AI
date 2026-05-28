@@ -170,13 +170,21 @@ ALTER TABLE analytics_snapshots ENABLE ROW LEVEL SECURITY;
 -- Since Firebase is being used for auth, we'll assume the backend acts as a service role 
 -- or custom JWT claims are passed. Here we create permissive policies for the backend to use,
 -- or policies assuming a custom claim matching company_id.
+DROP POLICY IF EXISTS "Allow full access to authenticated users via service" ON companies;
 CREATE POLICY "Allow full access to authenticated users via service" ON companies FOR ALL USING (true);
+DROP POLICY IF EXISTS "Allow full access to authenticated users via service" ON users;
 CREATE POLICY "Allow full access to authenticated users via service" ON users FOR ALL USING (true);
+DROP POLICY IF EXISTS "Allow full access to authenticated users via service" ON box_catalog;
 CREATE POLICY "Allow full access to authenticated users via service" ON box_catalog FOR ALL USING (true);
+DROP POLICY IF EXISTS "Allow full access to authenticated users via service" ON products;
 CREATE POLICY "Allow full access to authenticated users via service" ON products FOR ALL USING (true);
+DROP POLICY IF EXISTS "Allow full access to authenticated users via service" ON optimization_runs;
 CREATE POLICY "Allow full access to authenticated users via service" ON optimization_runs FOR ALL USING (true);
+DROP POLICY IF EXISTS "Allow full access to authenticated users via service" ON optimized_orders;
 CREATE POLICY "Allow full access to authenticated users via service" ON optimized_orders FOR ALL USING (true);
+DROP POLICY IF EXISTS "Allow full access to authenticated users via service" ON sustainability_metrics;
 CREATE POLICY "Allow full access to authenticated users via service" ON sustainability_metrics FOR ALL USING (true);
+DROP POLICY IF EXISTS "Allow full access to authenticated users via service" ON analytics_snapshots;
 CREATE POLICY "Allow full access to authenticated users via service" ON analytics_snapshots FOR ALL USING (true);
 
 -- STORAGE BUCKETS (Pseudo-SQL for Supabase Storage)
