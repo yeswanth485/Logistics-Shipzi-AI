@@ -3,7 +3,7 @@
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 -- TABLE 2: companies (Create first due to foreign keys)
-CREATE TABLE companies (
+CREATE TABLE IF NOT EXISTS companies (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     company_name TEXT NOT NULL,
     website_domain TEXT,
@@ -18,7 +18,7 @@ CREATE TABLE companies (
 );
 
 -- TABLE 1: users
-CREATE TABLE users (
+CREATE TABLE IF NOT EXISTS users (
     id UUID PRIMARY KEY, -- References auth.users from Supabase Auth
     email TEXT UNIQUE NOT NULL,
     full_name TEXT,
@@ -30,7 +30,7 @@ CREATE TABLE users (
 );
 
 -- TABLE 3: box_catalog
-CREATE TABLE box_catalog (
+CREATE TABLE IF NOT EXISTS box_catalog (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     company_id UUID REFERENCES companies(id) ON DELETE CASCADE, -- Nullable for global boxes
     box_name TEXT NOT NULL,
@@ -48,7 +48,7 @@ CREATE TABLE box_catalog (
 );
 
 -- TABLE 4: products
-CREATE TABLE products (
+CREATE TABLE IF NOT EXISTS products (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     company_id UUID REFERENCES companies(id) ON DELETE CASCADE,
     product_name TEXT NOT NULL,
@@ -63,7 +63,7 @@ CREATE TABLE products (
 );
 
 -- TABLE 5: optimization_runs
-CREATE TABLE optimization_runs (
+CREATE TABLE IF NOT EXISTS optimization_runs (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     company_id UUID REFERENCES companies(id) ON DELETE CASCADE,
     user_id UUID REFERENCES users(id) ON DELETE CASCADE,
@@ -80,7 +80,7 @@ CREATE TABLE optimization_runs (
 );
 
 -- TABLE 6: optimized_orders
-CREATE TABLE optimized_orders (
+CREATE TABLE IF NOT EXISTS optimized_orders (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     optimization_run_id UUID REFERENCES optimization_runs(id) ON DELETE CASCADE,
     company_id UUID REFERENCES companies(id) ON DELETE CASCADE,
@@ -103,7 +103,7 @@ CREATE TABLE optimized_orders (
 );
 
 -- TABLE 7: sustainability_metrics
-CREATE TABLE sustainability_metrics (
+CREATE TABLE IF NOT EXISTS sustainability_metrics (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     company_id UUID REFERENCES companies(id) ON DELETE CASCADE,
     period_start DATE,
@@ -117,7 +117,7 @@ CREATE TABLE sustainability_metrics (
 );
 
 -- TABLE 8: analytics_snapshots
-CREATE TABLE analytics_snapshots (
+CREATE TABLE IF NOT EXISTS analytics_snapshots (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     company_id UUID REFERENCES companies(id) ON DELETE CASCADE,
     snapshot_date DATE,
@@ -130,31 +130,31 @@ CREATE TABLE analytics_snapshots (
 );
 
 -- INDEXES
-CREATE INDEX idx_users_company_id ON users(company_id);
-CREATE INDEX idx_users_created_at ON users(created_at);
+CREATE INDEX IF NOT EXISTS idx_users_company_id ON users(company_id);
+CREATE INDEX IF NOT EXISTS idx_users_created_at ON users(created_at);
 
-CREATE INDEX idx_companies_created_at ON companies(created_at);
+CREATE INDEX IF NOT EXISTS idx_companies_created_at ON companies(created_at);
 
-CREATE INDEX idx_box_catalog_company_id ON box_catalog(company_id);
-CREATE INDEX idx_box_catalog_created_at ON box_catalog(created_at);
+CREATE INDEX IF NOT EXISTS idx_box_catalog_company_id ON box_catalog(company_id);
+CREATE INDEX IF NOT EXISTS idx_box_catalog_created_at ON box_catalog(created_at);
 
-CREATE INDEX idx_products_company_id ON products(company_id);
-CREATE INDEX idx_products_created_at ON products(created_at);
+CREATE INDEX IF NOT EXISTS idx_products_company_id ON products(company_id);
+CREATE INDEX IF NOT EXISTS idx_products_created_at ON products(created_at);
 
-CREATE INDEX idx_optimization_runs_company_id ON optimization_runs(company_id);
-CREATE INDEX idx_optimization_runs_user_id ON optimization_runs(user_id);
-CREATE INDEX idx_optimization_runs_status ON optimization_runs(status);
-CREATE INDEX idx_optimization_runs_created_at ON optimization_runs(created_at);
+CREATE INDEX IF NOT EXISTS idx_optimization_runs_company_id ON optimization_runs(company_id);
+CREATE INDEX IF NOT EXISTS idx_optimization_runs_user_id ON optimization_runs(user_id);
+CREATE INDEX IF NOT EXISTS idx_optimization_runs_status ON optimization_runs(status);
+CREATE INDEX IF NOT EXISTS idx_optimization_runs_created_at ON optimization_runs(created_at);
 
-CREATE INDEX idx_optimized_orders_company_id ON optimized_orders(company_id);
-CREATE INDEX idx_optimized_orders_run_id ON optimized_orders(optimization_run_id);
-CREATE INDEX idx_optimized_orders_created_at ON optimized_orders(created_at);
+CREATE INDEX IF NOT EXISTS idx_optimized_orders_company_id ON optimized_orders(company_id);
+CREATE INDEX IF NOT EXISTS idx_optimized_orders_run_id ON optimized_orders(optimization_run_id);
+CREATE INDEX IF NOT EXISTS idx_optimized_orders_created_at ON optimized_orders(created_at);
 
-CREATE INDEX idx_sustainability_metrics_company_id ON sustainability_metrics(company_id);
-CREATE INDEX idx_sustainability_metrics_period ON sustainability_metrics(period_start, period_end);
+CREATE INDEX IF NOT EXISTS idx_sustainability_metrics_company_id ON sustainability_metrics(company_id);
+CREATE INDEX IF NOT EXISTS idx_sustainability_metrics_period ON sustainability_metrics(period_start, period_end);
 
-CREATE INDEX idx_analytics_snapshots_company_id ON analytics_snapshots(company_id);
-CREATE INDEX idx_analytics_snapshots_date ON analytics_snapshots(snapshot_date);
+CREATE INDEX IF NOT EXISTS idx_analytics_snapshots_company_id ON analytics_snapshots(company_id);
+CREATE INDEX IF NOT EXISTS idx_analytics_snapshots_date ON analytics_snapshots(snapshot_date);
 
 -- ROW LEVEL SECURITY
 ALTER TABLE companies ENABLE ROW LEVEL SECURITY;
