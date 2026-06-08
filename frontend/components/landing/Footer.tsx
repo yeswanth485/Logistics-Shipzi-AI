@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { Box } from "lucide-react";
 
 export default function Footer() {
   return (
@@ -8,9 +7,10 @@ export default function Footer() {
         <div className="grid gap-8 md:grid-cols-4">
           <div className="md:col-span-1">
             <div className="mb-4 flex items-center space-x-2">
-              <Box className="h-8 w-8 text-packiq-blue" />
-              <span className="font-heading text-2xl font-bold text-white">PackIQ</span>
+              <img src="/logo.png" alt="Shipzi" className="h-8 w-8 rounded-md" />
+              <span className="font-heading text-2xl font-bold text-white">Shipzi</span>
             </div>
+            <p className="text-[10px] text-gray-500 uppercase tracking-[0.2em] mb-4">powered by terybi</p>
             <p className="mb-6 text-sm text-gray-500">
               Premium AI-powered logistics and packaging optimization platform.
             </p>
@@ -55,7 +55,7 @@ export default function Footer() {
         </div>
         
         <div className="mt-12 border-t border-white/10 pt-8 text-center text-sm text-gray-500">
-          <p>&copy; {new Date().getFullYear()} PackIQ. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} Shipzi. All rights reserved.</p>
         </div>
       </div>
     </footer>

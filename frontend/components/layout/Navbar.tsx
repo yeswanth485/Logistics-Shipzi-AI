@@ -2,9 +2,15 @@
 
 import { Bell, Search, Menu } from "lucide-react";
 import { useAuthStore } from "@/store/authStore";
+import Image from "next/image";
 
 export default function Navbar() {
   const { user, company } = useAuthStore();
+
+  const displayName = company?.company_name || user?.displayName || "Guest User";
+  const email = user?.email || "";
+  const avatarUrl = user?.photoURL || "";
+  const initial = displayName.charAt(0).toUpperCase();
 
   return (
     <header className="sticky top-0 z-30 flex h-16 w-full items-center justify-between border-b border-white/10 bg-packiq-dark/80 px-4 backdrop-blur-md lg:px-8 shadow-sm">
@@ -12,7 +18,7 @@ export default function Navbar() {
         <button className="rounded-md p-2 text-gray-400 hover:bg-white/10 hover:text-white">
           <Menu className="h-6 w-6" />
         </button>
-        <span className="ml-4 font-heading text-lg font-bold text-white">PackIQ</span>
+        <span className="ml-4 font-heading text-lg font-bold text-white">Shipzi</span>
       </div>
       
       <div className="hidden flex-1 items-center lg:flex">
@@ -39,12 +45,22 @@ export default function Navbar() {
         
         <div className="flex items-center space-x-3 border-l border-white/10 pl-4">
           <div className="hidden text-right lg:block">
-            <p className="text-sm font-medium text-white">{company?.company_name || "Guest User"}</p>
-            <p className="text-xs text-gray-400">{user?.email}</p>
+            <p className="text-sm font-medium text-white">{displayName}</p>
+            <p className="text-xs text-gray-400">{email}</p>
           </div>
-          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-packiq-blue to-packiq-cyan text-sm font-bold text-white ring-2 ring-packiq-dark">
-            {company?.company_name ? company.company_name.charAt(0).toUpperCase() : (user?.email ? user.email.charAt(0).toUpperCase() : "U")}
-          </div>
+          {avatarUrl ? (
+            <Image
+              src={avatarUrl}
+              alt="Avatar"
+              width={40}
+              height={40}
+              className="h-10 w-10 rounded-full ring-2 ring-packiq-dark object-cover"
+            />
+          ) : (
+            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-packiq-blue to-packiq-cyan text-sm font-bold text-white ring-2 ring-packiq-dark">
+              {initial}
+            </div>
+          )}
         </div>
       </div>
     </header>

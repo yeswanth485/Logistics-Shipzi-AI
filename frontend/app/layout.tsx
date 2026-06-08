@@ -13,8 +13,8 @@ const syne = Syne({
 });
 
 export const metadata: Metadata = {
-  title: "PackIQ | AI Packaging Optimization",
-  description: "AI-powered packaging optimization for lower shipping costs and less waste.",
+  title: "Shipzi | AI Packaging Optimization",
+  description: "AI-powered packaging optimization for lower shipping costs and less waste. Powered by terybi.",
 };
 
 export default function RootLayout({

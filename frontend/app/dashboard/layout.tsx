@@ -3,8 +3,8 @@ import Navbar from "@/components/layout/Navbar";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Dashboard | PackIQ",
-  description: "Your packaging analytics and optimization hub",
+  title: "Dashboard | Shipzi",
+  description: "Your packaging analytics and optimization hub - powered by terybi",
 };
 
 export default function DashboardLayout({

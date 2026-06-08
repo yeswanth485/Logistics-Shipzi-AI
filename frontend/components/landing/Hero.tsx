@@ -37,6 +37,19 @@ export default function Hero() {
         style={{ opacity, y }}
         className="relative z-10 mx-auto flex w-full max-w-6xl flex-col items-center justify-center px-5 pb-8 pt-10 text-center sm:px-8"
       >
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0 }}
+          className="mb-6 flex flex-col items-center"
+        >
+          <div className="flex items-center gap-3">
+            <img src="/logo.png" alt="Shipzi" className="h-12 w-12 rounded-xl" />
+            <span className="font-heading text-4xl font-extrabold text-white tracking-tight">Shipzi</span>
+          </div>
+          <span className="mt-1 text-xs text-gray-500 uppercase tracking-[0.3em]">powered by terybi</span>
+        </motion.div>
+
         <motion.h1
           initial={{ opacity: 0, y: 42 }}
           animate={{ opacity: 1, y: 0 }}

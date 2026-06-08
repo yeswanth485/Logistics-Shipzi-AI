@@ -1,12 +1,12 @@
+"use client";
+
 import OrderTable from "@/components/orders/OrderTable";
 import { ShoppingCart } from "lucide-react";
-import { Metadata } from "next";
-
-export const metadata: Metadata = {
-  title: "Orders | PackIQ",
-};
+import { useAppStore } from "@/store/appStore";
 
 export default function OrdersPage() {
+  const { bulkOrders, bulkSummary } = useAppStore();
+
   return (
     <div className="space-y-8">
       <div className="flex flex-col justify-between space-y-4 md:flex-row md:items-end md:space-y-0">
@@ -15,12 +15,25 @@ export default function OrdersPage() {
             <ShoppingCart className="h-8 w-8 text-packiq-emerald" />
             Orders Management
           </h1>
-          <p className="mt-2 text-gray-400">Track and manage your optimized shipments.</p>
+          <p className="mt-2 text-gray-400">View and manage your optimized shipments.</p>
         </div>
-        
-        <button className="rounded-xl bg-packiq-blue px-4 py-2 text-sm font-semibold text-white shadow-[0_0_15px_rgba(37,99,235,0.4)] transition-all hover:bg-blue-600">
-          Export CSV
-        </button>
+
+        {bulkSummary && (
+          <div className="flex items-center gap-6">
+            <div className="text-right">
+              <p className="text-xs text-gray-500 uppercase">Total Savings</p>
+              <p className="text-xl font-bold text-packiq-emerald">${bulkSummary.total_savings.toFixed(2)}</p>
+            </div>
+            <div className="text-right">
+              <p className="text-xs text-gray-500 uppercase">Products</p>
+              <p className="text-xl font-bold text-white">{bulkSummary.total_products}</p>
+            </div>
+            <div className="text-right">
+              <p className="text-xs text-gray-500 uppercase">CO₂ Saved</p>
+              <p className="text-xl font-bold text-green-400">{bulkSummary.total_co2_reduction} kg</p>
+            </div>
+          </div>
+        )}
       </div>
 
       <OrderTable />
